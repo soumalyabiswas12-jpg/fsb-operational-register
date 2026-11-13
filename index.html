@@ -7,7 +7,9 @@
 <title>FSB Operational Register</title>
 
 <style>
-* { box-sizing: border-box; }
+* {
+  box-sizing: border-box;
+}
 
 body {
   margin: 0;
@@ -19,15 +21,22 @@ body {
 
 header {
   background: #17243a;
-  padding: 22px;
+  padding: 24px 15px;
   border-radius: 14px;
   text-align: center;
   margin-bottom: 20px;
   border: 1px solid #30435e;
 }
 
-h1 { margin: 0; font-size: 23px; }
-header p { color: #aab9cc; margin-bottom: 0; }
+h1 {
+  margin: 0;
+  font-size: 23px;
+}
+
+header p {
+  color: #aab9cc;
+  margin-bottom: 0;
+}
 
 .panel {
   background: #17243a;
@@ -37,7 +46,36 @@ header p { color: #aab9cc; margin-bottom: 0; }
   margin-bottom: 18px;
 }
 
-h2 { font-size: 19px; margin-top: 0; }
+h2 {
+  font-size: 19px;
+  margin-top: 0;
+}
+
+/* DASHBOARD */
+
+.dashboard {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.stat {
+  background: #0b1220;
+  border: 1px solid #40536d;
+  border-radius: 10px;
+  padding: 16px;
+  color: #aab9cc;
+  font-size: 14px;
+}
+
+.stat strong {
+  display: block;
+  font-size: 28px;
+  color: #77b5ff;
+  margin-top: 10px;
+}
+
+/* FORM */
 
 label {
   display: block;
@@ -55,7 +93,10 @@ input, select, textarea {
   font-size: 15px;
 }
 
-textarea { min-height: 90px; resize: vertical; }
+textarea {
+  min-height: 90px;
+  resize: vertical;
+}
 
 button {
   padding: 13px;
@@ -68,14 +109,25 @@ button {
   cursor: pointer;
 }
 
-#submitBtn { width: 100%; margin-top: 18px; }
-button:disabled { opacity: .6; }
+#submitBtn {
+  width: 100%;
+  margin-top: 18px;
+}
+
+button:disabled {
+  opacity: .6;
+}
+
+/* STATUS */
 
 .status {
   color: #aab9cc;
   font-size: 13px;
   margin-top: 12px;
+  overflow-wrap: anywhere;
 }
+
+/* HISTORY */
 
 .record {
   background: #101b2d;
@@ -86,8 +138,16 @@ button:disabled { opacity: .6; }
   overflow-wrap: anywhere;
 }
 
-.record h3 { margin: 0 0 8px; color: #77b5ff; }
-.record p { margin: 7px 0; color: #d4deea; }
+.record h3 {
+  margin: 0 0 8px;
+  color: #77b5ff;
+}
+
+.record p {
+  margin: 7px 0;
+  color: #d4deea;
+  line-height: 1.5;
+}
 
 .deleteBtn {
   background: #b83232;
@@ -107,6 +167,7 @@ footer {
   font-size: 12px;
   padding: 15px;
 }
+
 </style>
 </head>
 
@@ -117,14 +178,50 @@ footer {
   <p>Internal Roleplay Activity Records</p>
 </header>
 
+<!-- DASHBOARD -->
+
+<section class="panel">
+  <h2>FSB Activity Dashboard</h2>
+
+  <div class="dashboard">
+
+    <div class="stat">
+      Patrols
+      <strong id="patrolCount">0</strong>
+    </div>
+
+    <div class="stat">
+      Arrests
+      <strong id="arrestCount">0</strong>
+    </div>
+
+    <div class="stat">
+      Inspections
+      <strong id="inspectionCount">0</strong>
+    </div>
+
+    <div class="stat">
+      Total Activities
+      <strong id="totalCount">0</strong>
+    </div>
+
+  </div>
+</section>
+
+<!-- SUBMIT FORM -->
+
 <section class="panel">
   <h2>Submit Activity Record</h2>
 
   <form id="activityForm">
 
     <label for="officer">Officer Name</label>
-    <input id="officer" maxlength="60"
-      placeholder="Enter officer name" required>
+    <input
+      id="officer"
+      maxlength="60"
+      placeholder="Enter officer name"
+      required
+    >
 
     <label for="type">Activity Type</label>
     <select id="type" required>
@@ -137,8 +234,12 @@ footer {
     <input id="date" type="date" required>
 
     <label for="details">Activity Description</label>
-    <textarea id="details" maxlength="1000"
-      placeholder="Enter activity details..." required></textarea>
+    <textarea
+      id="details"
+      maxlength="1000"
+      placeholder="Enter activity details..."
+      required
+    ></textarea>
 
     <button id="submitBtn" type="submit">
       Submit Record
@@ -146,11 +247,16 @@ footer {
 
   </form>
 
-  <div class="status" id="status">Connecting to database...</div>
+  <div class="status" id="status">
+    Connecting to database...
+  </div>
 </section>
+
+<!-- ACTIVITY HISTORY -->
 
 <section class="panel">
   <h2>Activity History</h2>
+
   <div id="history">
     <div class="empty">Loading records...</div>
   </div>
@@ -174,6 +280,8 @@ import {
 }
 from "https://www.gstatic.com/firebasejs/13.3.0/firebase-database.js";
 
+// FIREBASE CONFIGURATION
+
 const firebaseConfig = {
   apiKey: "AIzaSyAZCg5w2x_Y7pN8cS7zT5la0z6VlCiA53k",
   authDomain: "fsb-operational-register.firebaseapp.com",
@@ -184,9 +292,14 @@ const firebaseConfig = {
   appId: "1:348231836346:web:391e542701964a977a5883"
 };
 
+// INITIALIZE FIREBASE
+
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
+
 const activitiesRef = ref(db, "activities");
+
+// ELEMENTS
 
 const form = document.getElementById("activityForm");
 const history = document.getElementById("history");
@@ -194,15 +307,55 @@ const status = document.getElementById("status");
 const submitBtn = document.getElementById("submitBtn");
 const dateInput = document.getElementById("date");
 
-dateInput.value = new Date().toLocaleDateString("en-CA");
+// LOCAL DATE
+
+function getLocalDate() {
+  const now = new Date();
+  const offset = now.getTimezoneOffset();
+  return new Date(now.getTime() - offset * 60000)
+    .toISOString().slice(0, 10);
+}
+
+dateInput.value = getLocalDate();
+
+// DASHBOARD UPDATE
+
+function updateDashboard(records) {
+
+  const patrols =
+    records.filter(r => r.type === "Patrol").length;
+
+  const arrests =
+    records.filter(r => r.type === "Arrest").length;
+
+  const inspections =
+    records.filter(r => r.type === "Inspection").length;
+
+  document.getElementById("patrolCount").textContent = patrols;
+
+  document.getElementById("arrestCount").textContent = arrests;
+
+  document.getElementById("inspectionCount").textContent = inspections;
+
+  document.getElementById("totalCount").textContent = records.length;
+}
+
+// SUBMIT RECORD
 
 form.addEventListener("submit", async (event) => {
+
   event.preventDefault();
 
-  const officer = document.getElementById("officer").value.trim();
-  const type = document.getElementById("type").value;
+  const officer =
+    document.getElementById("officer").value.trim();
+
+  const type =
+    document.getElementById("type").value;
+
   const date = dateInput.value;
-  const details = document.getElementById("details").value.trim();
+
+  const details =
+    document.getElementById("details").value.trim();
 
   if (!officer || !date || !details) {
     status.textContent = "Please complete all fields.";
@@ -213,33 +366,49 @@ form.addEventListener("submit", async (event) => {
   status.textContent = "Saving record...";
 
   try {
+
     await push(activitiesRef, {
-      officer,
-      type,
-      date,
-      details,
+      officer: officer,
+      type: type,
+      date: date,
+      details: details,
       createdAt: Date.now()
     });
 
     form.reset();
-    dateInput.value = new Date().toLocaleDateString("en-CA");
+    dateInput.value = getLocalDate();
+
     status.textContent = "Record submitted successfully.";
 
   } catch (error) {
-    status.textContent = "Could not save record: " + error.message;
+
+    status.textContent =
+      "Could not save record: " + error.message;
+
+  } finally {
+
+    submitBtn.disabled = false;
+
   }
 
-  submitBtn.disabled = false;
 });
 
+// LOAD SHARED RECORDS
+
 onValue(activitiesRef, (snapshot) => {
+
   history.replaceChildren();
 
   if (!snapshot.exists()) {
+
+    updateDashboard([]);
+
     const empty = document.createElement("div");
     empty.className = "empty";
     empty.textContent = "No activity records yet.";
+
     history.appendChild(empty);
+
     status.textContent = "Database connected.";
     return;
   }
@@ -247,15 +416,28 @@ onValue(activitiesRef, (snapshot) => {
   const records = [];
 
   snapshot.forEach((child) => {
+
     records.push({
       id: child.key,
       ...child.val()
     });
+
   });
 
-  records.sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
+  // NEWEST RECORDS FIRST
+
+  records.sort((a, b) =>
+    (b.createdAt || 0) - (a.createdAt || 0)
+  );
+
+  // UPDATE DASHBOARD
+
+  updateDashboard(records);
+
+  // DISPLAY HISTORY
 
   records.forEach((record) => {
+
     const card = document.createElement("div");
     card.className = "record";
 
@@ -263,38 +445,67 @@ onValue(activitiesRef, (snapshot) => {
     heading.textContent = record.type || "Activity";
 
     const officer = document.createElement("p");
-    officer.textContent = "Officer: " + (record.officer || "");
+    officer.textContent =
+      "Officer: " + (record.officer || "");
 
     const date = document.createElement("p");
-    date.textContent = "Date: " + (record.date || "");
+    date.textContent =
+      "Date: " + (record.date || "");
 
     const details = document.createElement("p");
-    details.textContent = "Details: " + (record.details || "");
+    details.textContent =
+      "Details: " + (record.details || "");
 
     const deleteBtn = document.createElement("button");
     deleteBtn.className = "deleteBtn";
     deleteBtn.textContent = "Delete Record";
 
     deleteBtn.addEventListener("click", async () => {
-      if (!confirm("Delete this activity record?")) return;
+
+      if (!confirm("Delete this activity record?")) {
+        return;
+      }
 
       try {
-        await remove(ref(db, "activities/" + record.id));
+
+        await remove(
+          ref(db, "activities/" + record.id)
+        );
+
         status.textContent = "Record deleted.";
+
       } catch (error) {
-        status.textContent = "Delete failed: " + error.message;
+
+        status.textContent =
+          "Delete failed: " + error.message;
+
       }
+
     });
 
-    card.append(heading, officer, date, details, deleteBtn);
+    card.append(
+      heading,
+      officer,
+      date,
+      details,
+      deleteBtn
+    );
+
     history.appendChild(card);
+
   });
 
-  status.textContent = "Database connected. Records are syncing.";
+  status.textContent =
+    "Database connected. Records are syncing.";
+
 }, (error) => {
-  status.textContent = "Database connection error: " + error.message;
+
+  status.textContent =
+    "Database connection error: " + error.message;
+
 });
 
 </script>
+
 </body>
 </html>
