@@ -1,0 +1,300 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FSB Operational Register</title>
+
+<style>
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  padding: 18px;
+  background: #0b1220;
+  color: #edf2f7;
+  font-family: Arial, sans-serif;
+}
+
+header {
+  background: #17243a;
+  padding: 22px;
+  border-radius: 14px;
+  text-align: center;
+  margin-bottom: 20px;
+  border: 1px solid #30435e;
+}
+
+h1 { margin: 0; font-size: 23px; }
+header p { color: #aab9cc; margin-bottom: 0; }
+
+.panel {
+  background: #17243a;
+  border: 1px solid #30435e;
+  border-radius: 14px;
+  padding: 18px;
+  margin-bottom: 18px;
+}
+
+h2 { font-size: 19px; margin-top: 0; }
+
+label {
+  display: block;
+  margin: 14px 0 7px;
+  color: #cbd5e1;
+}
+
+input, select, textarea {
+  width: 100%;
+  padding: 13px;
+  border-radius: 9px;
+  border: 1px solid #40536d;
+  background: #0b1220;
+  color: white;
+  font-size: 15px;
+}
+
+textarea { min-height: 90px; resize: vertical; }
+
+button {
+  padding: 13px;
+  border: none;
+  border-radius: 9px;
+  background: #2878e5;
+  color: white;
+  font-size: 15px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+#submitBtn { width: 100%; margin-top: 18px; }
+button:disabled { opacity: .6; }
+
+.status {
+  color: #aab9cc;
+  font-size: 13px;
+  margin-top: 12px;
+}
+
+.record {
+  background: #101b2d;
+  border: 1px solid #34465f;
+  border-radius: 10px;
+  padding: 14px;
+  margin-top: 12px;
+  overflow-wrap: anywhere;
+}
+
+.record h3 { margin: 0 0 8px; color: #77b5ff; }
+.record p { margin: 7px 0; color: #d4deea; }
+
+.deleteBtn {
+  background: #b83232;
+  padding: 9px 13px;
+  margin-top: 8px;
+}
+
+.empty {
+  color: #aab9cc;
+  text-align: center;
+  padding: 25px 5px;
+}
+
+footer {
+  text-align: center;
+  color: #718096;
+  font-size: 12px;
+  padding: 15px;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1>FSB OPERATIONAL REGISTER</h1>
+  <p>Internal Roleplay Activity Records</p>
+</header>
+
+<section class="panel">
+  <h2>Submit Activity Record</h2>
+
+  <form id="activityForm">
+
+    <label for="officer">Officer Name</label>
+    <input id="officer" maxlength="60"
+      placeholder="Enter officer name" required>
+
+    <label for="type">Activity Type</label>
+    <select id="type" required>
+      <option value="Patrol">Patrol</option>
+      <option value="Arrest">Arrest</option>
+      <option value="Inspection">Inspection</option>
+    </select>
+
+    <label for="date">Activity Date</label>
+    <input id="date" type="date" required>
+
+    <label for="details">Activity Description</label>
+    <textarea id="details" maxlength="1000"
+      placeholder="Enter activity details..." required></textarea>
+
+    <button id="submitBtn" type="submit">
+      Submit Record
+    </button>
+
+  </form>
+
+  <div class="status" id="status">Connecting to database...</div>
+</section>
+
+<section class="panel">
+  <h2>Activity History</h2>
+  <div id="history">
+    <div class="empty">Loading records...</div>
+  </div>
+</section>
+
+<footer>
+  FSB Operational Register | Roleplay Use Only
+</footer>
+
+<script type="module">
+
+import { initializeApp }
+from "https://www.gstatic.com/firebasejs/13.3.0/firebase-app.js";
+
+import {
+  getDatabase,
+  ref,
+  push,
+  onValue,
+  remove
+}
+from "https://www.gstatic.com/firebasejs/13.3.0/firebase-database.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyAZCg5w2x_Y7pN8cS7zT5la0z6VlCiA53k",
+  authDomain: "fsb-operational-register.firebaseapp.com",
+  databaseURL: "https://fsb-operational-register-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "fsb-operational-register",
+  storageBucket: "fsb-operational-register.firebasestorage.app",
+  messagingSenderId: "348231836346",
+  appId: "1:348231836346:web:391e542701964a977a5883"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getDatabase(app);
+const activitiesRef = ref(db, "activities");
+
+const form = document.getElementById("activityForm");
+const history = document.getElementById("history");
+const status = document.getElementById("status");
+const submitBtn = document.getElementById("submitBtn");
+const dateInput = document.getElementById("date");
+
+dateInput.value = new Date().toLocaleDateString("en-CA");
+
+form.addEventListener("submit", async (event) => {
+  event.preventDefault();
+
+  const officer = document.getElementById("officer").value.trim();
+  const type = document.getElementById("type").value;
+  const date = dateInput.value;
+  const details = document.getElementById("details").value.trim();
+
+  if (!officer || !date || !details) {
+    status.textContent = "Please complete all fields.";
+    return;
+  }
+
+  submitBtn.disabled = true;
+  status.textContent = "Saving record...";
+
+  try {
+    await push(activitiesRef, {
+      officer,
+      type,
+      date,
+      details,
+      createdAt: Date.now()
+    });
+
+    form.reset();
+    dateInput.value = new Date().toLocaleDateString("en-CA");
+    status.textContent = "Record submitted successfully.";
+
+  } catch (error) {
+    status.textContent = "Could not save record: " + error.message;
+  }
+
+  submitBtn.disabled = false;
+});
+
+onValue(activitiesRef, (snapshot) => {
+  history.replaceChildren();
+
+  if (!snapshot.exists()) {
+    const empty = document.createElement("div");
+    empty.className = "empty";
+    empty.textContent = "No activity records yet.";
+    history.appendChild(empty);
+    status.textContent = "Database connected.";
+    return;
+  }
+
+  const records = [];
+
+  snapshot.forEach((child) => {
+    records.push({
+      id: child.key,
+      ...child.val()
+    });
+  });
+
+  records.sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
+
+  records.forEach((record) => {
+    const card = document.createElement("div");
+    card.className = "record";
+
+    const heading = document.createElement("h3");
+    heading.textContent = record.type || "Activity";
+
+    const officer = document.createElement("p");
+    officer.textContent = "Officer: " + (record.officer || "");
+
+    const date = document.createElement("p");
+    date.textContent = "Date: " + (record.date || "");
+
+    const details = document.createElement("p");
+    details.textContent = "Details: " + (record.details || "");
+
+    const deleteBtn = document.createElement("button");
+    deleteBtn.className = "deleteBtn";
+    deleteBtn.textContent = "Delete Record";
+
+    deleteBtn.addEventListener("click", async () => {
+      if (!confirm("Delete this activity record?")) return;
+
+      try {
+        await remove(ref(db, "activities/" + record.id));
+        status.textContent = "Record deleted.";
+      } catch (error) {
+        status.textContent = "Delete failed: " + error.message;
+      }
+    });
+
+    card.append(heading, officer, date, details, deleteBtn);
+    history.appendChild(card);
+  });
+
+  status.textContent = "Database connected. Records are syncing.";
+}, (error) => {
+  status.textContent = "Database connection error: " + error.message;
+});
+
+</script>
+</body>
+</html>
