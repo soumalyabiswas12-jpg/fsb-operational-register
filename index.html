@@ -5,347 +5,263 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>FSB Command Portal | Live Russia RP</title>
-
 <style>
 :root {
-  --bg:#101510;
-  --panel:#192019;
-  --panel2:#202a20;
-  --green:#758c51;
-  --green2:#9aaf70;
-  --text:#e7eadf;
-  --muted:#9ba493;
-  --border:#354032;
-  --red:#a94e4e;
+  --bg:#101510;--panel:#192019;--panel2:#202a20;
+  --green:#758c51;--green2:#9aaf70;--text:#e7eadf;
+  --muted:#9ba493;--border:#354032;--red:#a94e4e;
 }
 *{box-sizing:border-box}
-body{
-  margin:0;background:var(--bg);color:var(--text);
-  font-family:Arial,sans-serif;
-}
-header{
-  background:#171e17;border-bottom:1px solid var(--border);
-  padding:17px 20px;display:flex;align-items:center;
-  justify-content:space-between;gap:12px;flex-wrap:wrap;
-}
+body{margin:0;background:var(--bg);color:var(--text);font-family:Arial,sans-serif}
+header{background:#171e17;border-bottom:1px solid var(--border);padding:17px 20px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
 .brand{display:flex;align-items:center;gap:12px}
-.emblem{
-  width:43px;height:43px;border:1px solid var(--green);
-  border-radius:8px;display:grid;place-items:center;
-  color:var(--green2);font-weight:bold;font-size:19px;
-}
+.emblem{width:43px;height:43px;border:1px solid var(--green);border-radius:8px;display:grid;place-items:center;color:var(--green2);font-weight:bold;font-size:19px}
 h1{font-size:17px;margin:0;letter-spacing:1px}
 .subtitle{font-size:11px;color:var(--muted);margin-top:5px}
 .status{font-size:11px;color:var(--green2)}
 .layout{display:flex;min-height:calc(100vh - 76px)}
-nav{
-  width:220px;flex-shrink:0;background:#151c15;
-  border-right:1px solid var(--border);padding:15px 10px;
-}
-.nav-title{
-  color:var(--muted);font-size:10px;letter-spacing:1.5px;
-  padding:12px 10px 8px;
-}
-nav button{
-  display:block;width:100%;text-align:left;
-  background:transparent;border:0;color:var(--muted);
-  padding:12px 11px;border-radius:5px;margin:3px 0;
-  cursor:pointer;font-size:13px;
-}
-nav button.active,nav button:hover{
-  background:#293529;color:var(--green2);
-  border-left:3px solid var(--green);
-}
+nav{width:220px;flex-shrink:0;background:#151c15;border-right:1px solid var(--border);padding:15px 10px}
+.nav-title{color:var(--muted);font-size:10px;letter-spacing:1.5px;padding:12px 10px 8px}
+nav button{display:block;width:100%;text-align:left;background:transparent;border:0;color:var(--muted);padding:12px 11px;border-radius:5px;margin:3px 0;cursor:pointer;font-size:13px}
+nav button.active,nav button:hover{background:#293529;color:var(--green2);border-left:3px solid var(--green)}
 main{flex:1;min-width:0;padding:24px;max-width:1500px}
 .page-title{font-size:23px;margin:0 0 6px}
 .page-desc{font-size:12px;color:var(--muted);margin-bottom:22px}
-.cards{
-  display:grid;grid-template-columns:repeat(4,minmax(0,1fr));
-  gap:13px;margin-bottom:22px;
-}
-.card,.panel{
-  background:var(--panel);border:1px solid var(--border);
-  border-radius:7px;padding:17px;
-}
+.cards{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:13px;margin-bottom:22px}
+.card,.panel{background:var(--panel);border:1px solid var(--border);border-radius:7px;padding:17px}
 .card-label{font-size:11px;color:var(--muted);text-transform:uppercase}
 .card-number{font-size:29px;font-weight:bold;margin-top:10px;color:var(--green2)}
 .panel{margin-bottom:18px}
 .panel h3{font-size:14px;margin:0 0 15px}
 .grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
 label{display:block;font-size:11px;color:var(--muted);margin:12px 0 6px}
-input,select,textarea{
-  width:100%;background:#111811;border:1px solid var(--border);
-  color:var(--text);padding:11px;border-radius:5px;
-  font-size:13px;outline:none;
-}
+input,select,textarea{width:100%;background:#111811;border:1px solid var(--border);color:var(--text);padding:11px;border-radius:5px;font-size:13px;outline:none}
 textarea{min-height:85px;resize:vertical}
 input:focus,select:focus,textarea:focus{border-color:var(--green)}
-button.primary{
-  background:var(--green);border:0;color:#101510;
-  font-weight:bold;padding:11px 16px;border-radius:5px;
-  cursor:pointer;margin-top:14px;
-}
-button.secondary{
-  background:var(--panel2);border:1px solid var(--border);
-  color:var(--text);padding:9px 12px;border-radius:5px;
-  cursor:pointer;
-}
-button.danger{
-  background:transparent;border:1px solid var(--red);
-  color:#d98c8c;padding:7px 10px;border-radius:4px;cursor:pointer;
-}
+button.primary{background:var(--green);border:0;color:#101510;font-weight:bold;padding:11px 16px;border-radius:5px;cursor:pointer;margin-top:14px}
+button.secondary{background:var(--panel2);border:1px solid var(--border);color:var(--text);padding:9px 12px;border-radius:5px;cursor:pointer}
+button.danger{background:transparent;border:1px solid var(--red);color:#d98c8c;padding:7px 10px;border-radius:4px;cursor:pointer}
 .toolbar{display:flex;gap:9px;flex-wrap:wrap;margin-bottom:14px}
 .toolbar input{flex:1;min-width:150px}
-.record{
-  background:#151d15;border:1px solid var(--border);
-  border-radius:6px;padding:14px;margin-bottom:10px;
-}
+.record{background:#151d15;border:1px solid var(--border);border-radius:6px;padding:14px;margin-bottom:10px}
 .record-top{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
 .record h4{font-size:14px;margin:0 0 7px}
 .record p{font-size:12px;color:var(--muted);line-height:1.6;margin:6px 0}
-.tag{
-  display:inline-block;background:#303d2d;color:var(--green2);
-  padding:4px 8px;border-radius:3px;font-size:10px;
-}
+.tag{display:inline-block;background:#303d2d;color:var(--green2);padding:4px 8px;border-radius:3px;font-size:10px}
 .small{font-size:10px;color:var(--muted)}
 .empty{padding:25px;text-align:center;color:var(--muted);font-size:13px}
 .hidden{display:none!important}
-.notice{
-  padding:12px;background:#293529;border-left:3px solid var(--green);
-  color:#cbd5bd;font-size:12px;line-height:1.6;margin-bottom:16px;
-}
-footer{
-  border-top:1px solid var(--border);padding:15px;
-  text-align:center;color:var(--muted);font-size:10px;
-}
+.notice{padding:12px;background:#293529;border-left:3px solid var(--green);color:#cbd5bd;font-size:12px;line-height:1.6;margin-bottom:16px}
+footer{border-top:1px solid var(--border);padding:15px;text-align:center;color:var(--muted);font-size:10px}
 @media(max-width:850px){
-  .layout{display:block}
-  nav{
-    width:100%;display:flex;overflow-x:auto;
-    border-right:0;border-bottom:1px solid var(--border);
-    padding:8px;gap:5px;
-  }
-  .nav-title{display:none}
-  nav button{white-space:nowrap;width:auto;margin:0}
-  main{padding:16px}
-  .cards{grid-template-columns:repeat(2,minmax(0,1fr))}
+.layout{display:block}
+nav{width:100%;display:flex;overflow-x:auto;border-right:0;border-bottom:1px solid var(--border);padding:8px;gap:5px}
+.nav-title{display:none}
+nav button{white-space:nowrap;width:auto;margin:0}
+main{padding:16px}
+.cards{grid-template-columns:repeat(2,minmax(0,1fr))}
 }
 @media(max-width:500px){
-  .grid2{grid-template-columns:1fr}
-  .cards{gap:8px}
-  .card{padding:12px}
-  .card-number{font-size:24px}
-  main{padding:12px}
+.grid2{grid-template-columns:1fr}
+.cards{gap:8px}
+.card{padding:12px}
+.card-number{font-size:24px}
+main{padding:12px}
 }
 </style>
 </head>
-
 <body>
 <header>
-  <div class="brand">
-    <div class="emblem">F</div>
-    <div>
-      <h1>FSB COMMAND PORTAL</h1>
-      <div class="subtitle">LIVE RUSSIA RP • INTERNAL ADMINISTRATION SYSTEM</div>
-    </div>
-  </div>
-  <div class="status" id="connection">● CONNECTING...</div>
+<div class="brand">
+<div class="emblem">F</div>
+<div><h1>FSB COMMAND PORTAL</h1><div class="subtitle">LIVE RUSSIA RP • INTERNAL ADMINISTRATION SYSTEM</div></div>
+</div>
+<div class="status" id="connection">● CONNECTING...</div>
 </header>
 
 <div class="layout">
 <nav>
-  <div class="nav-title">MAIN MENU</div>
-  <button class="active" data-page="dashboard">▦ Dashboard</button>
-  <button data-page="personnel">♙ Personnel</button>
-  <button data-page="cases">▤ Case Management</button>
-  <button data-page="reports">▧ Intelligence Reports</button>
-  <button data-page="announcements">▣ Announcements</button>
-  <button data-page="tasks">☷ Duty & Tasks</button>
-  <button data-page="activity">◷ Activity Log</button>
-  <div class="nav-title">ADMINISTRATION</div>
-  <button data-page="admin">⚙ Administration</button>
+<div class="nav-title">MAIN MENU</div>
+<button class="active" data-page="dashboard">▦ Dashboard</button>
+<button data-page="personnel">♙ Personnel</button>
+<button data-page="cases">▤ Case Management</button>
+<button data-page="reports">▧ Intelligence Reports</button>
+<button data-page="announcements">▣ Announcements</button>
+<button data-page="tasks">☷ Duty & Tasks</button>
+<button data-page="activity">◷ Activity Log</button>
+<div class="nav-title">ADMINISTRATION</div>
+<button data-page="admin">⚙ Administration</button>
 </nav>
 
 <main>
-  <section id="dashboard" class="page">
-    <h2 class="page-title">Command Dashboard</h2>
-    <p class="page-desc">Department overview and administrative statistics.</p>
+<section id="dashboard" class="page">
+<h2 class="page-title">Command Dashboard</h2>
+<p class="page-desc">Department overview and administrative statistics.</p>
+<div class="notice">FICTIONAL ROLEPLAY SYSTEM — All records are for Live Russia RP.</div>
+<div class="cards">
+<div class="card"><div class="card-label">Personnel</div><div class="card-number" id="countPersonnel">0</div></div>
+<div class="card"><div class="card-label">RP Cases</div><div class="card-number" id="countCases">0</div></div>
+<div class="card"><div class="card-label">Reports</div><div class="card-number" id="countReports">0</div></div>
+<div class="card"><div class="card-label">Tasks</div><div class="card-number" id="countTasks">0</div></div>
+</div>
+<div class="grid2">
+<div class="panel">
+<h3>Department Overview</h3>
+<p class="small">Active personnel: <b id="activePersonnel">0</b></p>
+<p class="small">Open cases: <b id="openCases">0</b></p>
+<p class="small">Pending tasks: <b id="pendingTasks">0</b></p>
+<p class="small">Announcements: <b id="countAnnouncements">0</b></p>
+</div>
+<div class="panel"><h3>Recent Activity</h3><div id="dashboardActivity"></div></div>
+</div>
+</section>
 
-    <div class="notice">
-      FICTIONAL ROLEPLAY SYSTEM — All records are for Live Russia RP.
-    </div>
+<section id="personnel" class="page hidden">
+<h2 class="page-title">Personnel Management</h2>
+<p class="page-desc">Maintain fictional department personnel records.</p>
+<div class="panel">
+<h3>Register Personnel</h3>
+<form id="personnelForm">
+<div class="grid2">
+<div><label>Personnel Name *</label><input name="name" required></div>
+<div>
+<label>Rank</label>
+<select name="rank">
+<option>Rank 1: Trainee</option>
+<option>Rank 2: Ensign</option>
+<option>Rank 3: Senior Ensign</option>
+<option>Rank 4: Junior Lieutenant</option>
+<option>Rank 5: Lieutenant</option>
+<option>Rank 6: Senior Lieutenant</option>
+<option>Rank 7: Captain</option>
+<option>Rank 8: Major</option>
+<option>Rank 9: Colonel Lieutenant</option>
+<option>Rank 10: Colonel</option>
+</select>
+</div>
+<div><label>Department</label>
+<select name="department">
+<option>General Administration</option>
+<option>Personnel Division</option>
+<option>Internal Affairs</option>
+<option>RP Investigation Division</option>
+<option>Other</option>
+</select>
+</div>
+<div><label>Status</label>
+<select name="status"><option>Active</option><option>On Leave</option><option>Suspended</option><option>Inactive</option></select>
+</div>
+</div>
+<label>Service Notes</label><textarea name="notes"></textarea>
+<button class="primary">Register Personnel</button>
+</form>
+</div>
+<div class="toolbar"><input id="personnelSearch" placeholder="Search personnel..."></div>
+<div id="personnelList"></div>
+</section>
 
-    <div class="cards">
-      <div class="card"><div class="card-label">Personnel</div><div class="card-number" id="countPersonnel">0</div></div>
-      <div class="card"><div class="card-label">RP Cases</div><div class="card-number" id="countCases">0</div></div>
-      <div class="card"><div class="card-label">Reports</div><div class="card-number" id="countReports">0</div></div>
-      <div class="card"><div class="card-label">Tasks</div><div class="card-number" id="countTasks">0</div></div>
-    </div>
+<section id="cases" class="page hidden">
+<h2 class="page-title">Case Management</h2>
+<p class="page-desc">Create and maintain fictional RP case files.</p>
+<div class="panel">
+<h3>Create Case File</h3>
+<form id="casesForm">
+<label>Case Title *</label><input name="title" required>
+<div class="grid2">
+<div><label>Assigned Officer</label><input name="officer"></div>
+<div><label>Case Status</label><select name="status"><option>Open</option><option>Under Review</option><option>Pending</option><option>Closed</option></select></div>
+</div>
+<label>RP Case Summary *</label><textarea name="details" required></textarea>
+<label>Outcome / Decision</label><textarea name="outcome"></textarea>
+<button class="primary">Create Case</button>
+</form>
+</div>
+<div class="toolbar"><input id="casesSearch" placeholder="Search cases..."></div>
+<div id="casesList"></div>
+</section>
 
-    <div class="grid2">
-      <div class="panel">
-        <h3>Department Overview</h3>
-        <p class="small">Active personnel: <b id="activePersonnel">0</b></p>
-        <p class="small">Open cases: <b id="openCases">0</b></p>
-        <p class="small">Pending tasks: <b id="pendingTasks">0</b></p>
-        <p class="small">Announcements: <b id="countAnnouncements">0</b></p>
-      </div>
-      <div class="panel">
-        <h3>Recent Activity</h3>
-        <div id="dashboardActivity"></div>
-      </div>
-    </div>
-  </section>
+<section id="reports" class="page hidden">
+<h2 class="page-title">Intelligence Reports</h2>
+<p class="page-desc">Fictional RP reports and administrative records.</p>
+<div class="panel">
+<h3>Submit Report</h3>
+<form id="reportsForm">
+<label>Report Title *</label><input name="title" required>
+<div class="grid2">
+<div><label>Submitted By</label><input name="officer"></div>
+<div><label>Classification</label><select name="classification"><option>Routine</option><option>Internal</option><option>Confidential RP</option><option>Restricted RP</option></select></div>
+</div>
+<label>Report Summary *</label><textarea name="details" required></textarea>
+<button class="primary">Submit Report</button>
+</form>
+</div>
+<div class="toolbar"><input id="reportsSearch" placeholder="Search reports..."></div>
+<div id="reportsList"></div>
+</section>
 
-  <section id="personnel" class="page hidden">
-    <h2 class="page-title">Personnel Management</h2>
-    <p class="page-desc">Maintain fictional department personnel records.</p>
-    <div class="panel">
-      <h3>Register Personnel</h3>
-      <form id="personnelForm">
-        <div class="grid2">
-          <div><label>Personnel Name *</label><input name="name" required></div>
-          <div><label>Rank</label>
-            <select name="rank">
-              <option>Recruit</option><option>Junior Officer</option>
-              <option>Officer</option><option>Senior Officer</option>
-              <option>Major</option><option>Colonel</option>
-              <option>Director</option>
-            </select>
-          </div>
-          <div><label>Department</label>
-            <select name="department">
-              <option>General Administration</option>
-              <option>Personnel Division</option>
-              <option>Internal Affairs</option>
-              <option>RP Investigation Division</option>
-              <option>Other</option>
-            </select>
-          </div>
-          <div><label>Status</label>
-            <select name="status"><option>Active</option><option>On Leave</option><option>Suspended</option><option>Inactive</option></select>
-          </div>
-        </div>
-        <label>Service Notes</label><textarea name="notes"></textarea>
-        <button class="primary">Register Personnel</button>
-      </form>
-    </div>
-    <div class="toolbar"><input id="personnelSearch" placeholder="Search personnel..."></div>
-    <div id="personnelList"></div>
-  </section>
+<section id="announcements" class="page hidden">
+<h2 class="page-title">Department Announcements</h2>
+<p class="page-desc">Internal notices for your RP department.</p>
+<div class="panel">
+<h3>Publish Announcement</h3>
+<form id="announcementsForm">
+<label>Announcement Title *</label><input name="title" required>
+<label>Announcement Message *</label><textarea name="details" required></textarea>
+<label>Priority</label><select name="priority"><option>Normal</option><option>Important</option><option>Urgent</option></select>
+<label>Issued By</label><input name="officer">
+<button class="primary">Publish Announcement</button>
+</form>
+</div>
+<div id="announcementsList"></div>
+</section>
 
-  <section id="cases" class="page hidden">
-    <h2 class="page-title">Case Management</h2>
-    <p class="page-desc">Create and maintain fictional RP case files.</p>
-    <div class="panel">
-      <h3>Create Case File</h3>
-      <form id="casesForm">
-        <label>Case Title *</label><input name="title" required>
-        <div class="grid2">
-          <div><label>Assigned Officer</label><input name="officer"></div>
-          <div><label>Case Status</label>
-            <select name="status"><option>Open</option><option>Under Review</option><option>Pending</option><option>Closed</option></select>
-          </div>
-        </div>
-        <label>RP Case Summary *</label><textarea name="details" required></textarea>
-        <label>Outcome / Decision</label><textarea name="outcome"></textarea>
-        <button class="primary">Create Case</button>
-      </form>
-    </div>
-    <div class="toolbar"><input id="casesSearch" placeholder="Search cases..."></div>
-    <div id="casesList"></div>
-  </section>
+<section id="tasks" class="page hidden">
+<h2 class="page-title">Duty & Task Management</h2>
+<p class="page-desc">Assign fictional administrative tasks and track completion.</p>
+<div class="panel">
+<h3>Create Task</h3>
+<form id="tasksForm">
+<label>Task Title *</label><input name="title" required>
+<div class="grid2">
+<div><label>Assigned Personnel</label><input name="officer"></div>
+<div><label>Task Status</label><select name="status"><option>Pending</option><option>In Progress</option><option>Completed</option></select></div>
+</div>
+<label>Task Details</label><textarea name="details"></textarea>
+<button class="primary">Assign Task</button>
+</form>
+</div>
+<div class="toolbar"><input id="tasksSearch" placeholder="Search tasks..."></div>
+<div id="tasksList"></div>
+</section>
 
-  <section id="reports" class="page hidden">
-    <h2 class="page-title">Intelligence Reports</h2>
-    <p class="page-desc">Fictional RP reports and administrative records.</p>
-    <div class="panel">
-      <h3>Submit Report</h3>
-      <form id="reportsForm">
-        <label>Report Title *</label><input name="title" required>
-        <div class="grid2">
-          <div><label>Submitted By</label><input name="officer"></div>
-          <div><label>Classification</label>
-            <select name="classification"><option>Routine</option><option>Internal</option><option>Confidential RP</option><option>Restricted RP</option></select>
-          </div>
-        </div>
-        <label>Report Summary *</label><textarea name="details" required></textarea>
-        <button class="primary">Submit Report</button>
-      </form>
-    </div>
-    <div class="toolbar"><input id="reportsSearch" placeholder="Search reports..."></div>
-    <div id="reportsList"></div>
-  </section>
+<section id="activity" class="page hidden">
+<h2 class="page-title">Activity Log</h2>
+<p class="page-desc">Recent changes made within this RP portal.</p>
+<div id="activityList"></div>
+</section>
 
-  <section id="announcements" class="page hidden">
-    <h2 class="page-title">Department Announcements</h2>
-    <p class="page-desc">Internal notices for your RP department.</p>
-    <div class="panel">
-      <h3>Publish Announcement</h3>
-      <form id="announcementsForm">
-        <label>Announcement Title *</label><input name="title" required>
-        <label>Announcement Message *</label><textarea name="details" required></textarea>
-        <label>Priority</label>
-        <select name="priority"><option>Normal</option><option>Important</option><option>Urgent</option></select>
-        <label>Issued By</label><input name="officer">
-        <button class="primary">Publish Announcement</button>
-      </form>
-    </div>
-    <div id="announcementsList"></div>
-  </section>
-
-  <section id="tasks" class="page hidden">
-    <h2 class="page-title">Duty & Task Management</h2>
-    <p class="page-desc">Assign fictional administrative tasks and track completion.</p>
-    <div class="panel">
-      <h3>Create Task</h3>
-      <form id="tasksForm">
-        <label>Task Title *</label><input name="title" required>
-        <div class="grid2">
-          <div><label>Assigned Personnel</label><input name="officer"></div>
-          <div><label>Task Status</label>
-            <select name="status"><option>Pending</option><option>In Progress</option><option>Completed</option></select>
-          </div>
-        </div>
-        <label>Task Details</label><textarea name="details"></textarea>
-        <button class="primary">Assign Task</button>
-      </form>
-    </div>
-    <div class="toolbar"><input id="tasksSearch" placeholder="Search tasks..."></div>
-    <div id="tasksList"></div>
-  </section>
-
-  <section id="activity" class="page hidden">
-    <h2 class="page-title">Activity Log</h2>
-    <p class="page-desc">Recent changes made within this RP portal.</p>
-    <div id="activityList"></div>
-  </section>
-
-  <section id="admin" class="page hidden">
-    <h2 class="page-title">Administration Centre</h2>
-    <p class="page-desc">Portal information and data management.</p>
-    <div class="panel">
-      <h3>Database Information</h3>
-      <p class="small">Project: fsb-operational-register</p>
-      <p class="small">Database section: portal</p>
-      <p class="small">Platform: Firebase Realtime Database</p>
-      <button class="secondary" id="exportButton">Export Portal Data (JSON)</button>
-      <button class="secondary" id="csvButton">Export All Records (CSV)</button>
-    </div>
-    <div class="panel">
-      <h3>Portal Modules</h3>
-      <p class="small">Personnel Management — Available</p>
-      <p class="small">Case Management — Available</p>
-      <p class="small">Reports Archive — Available</p>
-      <p class="small">Announcements — Available</p>
-      <p class="small">Duty & Tasks — Available</p>
-      <p class="small">Activity Log — Available</p>
-    </div>
-    <div class="notice">
-      This current version does not have secure user authentication or role permissions.
-      Do not store real personal, confidential or sensitive information here.
-    </div>
-  </section>
+<section id="admin" class="page hidden">
+<h2 class="page-title">Administration Centre</h2>
+<p class="page-desc">Portal information and data management.</p>
+<div class="panel">
+<h3>Database Information</h3>
+<p class="small">Project: fsb-operational-register</p>
+<p class="small">Database section: portal</p>
+<p class="small">Platform: Firebase Realtime Database</p>
+<button class="secondary" id="exportButton">Export Portal Data (JSON)</button>
+<button class="secondary" id="csvButton">Export All Records (CSV)</button>
+</div>
+<div class="panel">
+<h3>Portal Modules</h3>
+<p class="small">Personnel Management — Available</p>
+<p class="small">Case Management — Available</p>
+<p class="small">Reports Archive — Available</p>
+<p class="small">Announcements — Available</p>
+<p class="small">Duty & Tasks — Available</p>
+<p class="small">Activity Log — Available</p>
+</div>
+<div class="notice">This current version does not have secure user authentication or role permissions. Do not store real personal, confidential or sensitive information here.</div>
+</section>
 </main>
 </div>
 
@@ -353,7 +269,6 @@ footer{
 
 <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-database-compat.js"></script>
-
 <script>
 const firebaseConfig = {
   apiKey: "AIzaSyAZCg5w2x_Y7pN8cS7zT5la0z6VlCiA53k",
@@ -369,43 +284,23 @@ firebase.initializeApp(firebaseConfig);
 const db = firebase.database();
 const root = db.ref("portal");
 
-const modules = [
-  "personnel","cases","reports","announcements","tasks","activity"
-];
-
-let data = {
-  personnel:[],cases:[],reports:[],
-  announcements:[],tasks:[],activity:[]
-};
+const modules = ["personnel","cases","reports","announcements","tasks","activity"];
+let data = {personnel:[],cases:[],reports:[],announcements:[],tasks:[],activity:[]};
 
 function escapeHTML(value){
   return String(value ?? "").replace(/[&<>"']/g, char => ({
-    "&":"&amp;","<":"&lt;",">":"&gt;",
-    '"':"&quot;","'":"&#39;"
+    "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
   }[char]));
 }
-
-function timestamp(){
-  return new Date().toLocaleString();
-}
-
+function timestamp(){return new Date().toLocaleString();}
 function logActivity(message){
-  root.child("activity").push({
-    title:message,
-    date:timestamp(),
-    createdAt:Date.now()
-  });
+  root.child("activity").push({title:message,date:timestamp(),createdAt:Date.now()});
 }
-
 function showPage(page){
   document.querySelectorAll(".page").forEach(p=>p.classList.add("hidden"));
   document.getElementById(page).classList.remove("hidden");
-
-  document.querySelectorAll("nav button").forEach(b=>{
-    b.classList.toggle("active",b.dataset.page===page);
-  });
+  document.querySelectorAll("nav button").forEach(b=>b.classList.toggle("active",b.dataset.page===page));
 }
-
 document.querySelectorAll("nav button").forEach(button=>{
   button.addEventListener("click",()=>showPage(button.dataset.page));
 });
@@ -414,24 +309,15 @@ function submitForm(module,form){
   form.addEventListener("submit",async event=>{
     event.preventDefault();
     const values=Object.fromEntries(new FormData(form).entries());
-
-    const record={
-      ...values,
-      date:timestamp(),
-      createdAt:Date.now()
-    };
-
+    const record={...values,date:timestamp(),createdAt:Date.now()};
     try{
       await root.child(module).push(record);
       await logActivity("New "+module+" record added");
       form.reset();
       alert("Record saved successfully.");
-    }catch(error){
-      alert("Could not save record: "+error.message);
-    }
+    }catch(error){alert("Could not save record: "+error.message);}
   });
 }
-
 ["personnel","cases","reports","announcements","tasks"].forEach(module=>{
   submitForm(module,document.getElementById(module+"Form"));
 });
@@ -442,73 +328,48 @@ function removeRecord(module,id){
     .then(()=>logActivity("A "+module+" record was deleted"))
     .catch(error=>alert(error.message));
 }
-
 function makeRecord(record,module){
-  const title=record.name || record.title || "Untitled record";
-  const description=record.details || record.notes || "";
-  const status=record.status || record.priority || record.classification || "";
-  const officer=record.officer || record.department || "";
-  const extra=record.outcome || record.rank || "";
-
+  const title=record.name||record.title||"Untitled record";
+  const description=record.details||record.notes||"";
+  const status=record.status||record.priority||record.classification||"";
+  const officer=record.officer||record.department||"";
+  const extra=record.outcome||record.rank||"";
   return `
     <div class="record">
       <div class="record-top">
-        <div>
-          <h4>${escapeHTML(title)}</h4>
-          <span class="tag">${escapeHTML(status || module)}</span>
-        </div>
+        <div><h4>${escapeHTML(title)}</h4><span class="tag">${escapeHTML(status||module)}</span></div>
         <button class="danger" onclick="removeRecord('${module}','${escapeHTML(record.id)}')">Delete</button>
       </div>
       <p>${escapeHTML(description)}</p>
-      ${officer ? `<p>Assigned / By: ${escapeHTML(officer)}</p>` : ""}
-      ${extra ? `<p>Additional: ${escapeHTML(extra)}</p>` : ""}
-      <div class="small">${escapeHTML(record.date || "")}</div>
+      ${officer?`<p>Assigned / By: ${escapeHTML(officer)}</p>`:""}
+      ${extra?`<p>Additional: ${escapeHTML(extra)}</p>`:""}
+      <div class="small">${escapeHTML(record.date||"")}</div>
     </div>`;
 }
-
 function renderModule(module){
   const container=document.getElementById(module+"List");
   if(!container)return;
-
   const search=document.getElementById(module+"Search");
-  const term=search ? search.value.toLowerCase().trim() : "";
-
+  const term=search?search.value.toLowerCase().trim():"";
   const records=[...data[module]].sort((a,b)=>(b.createdAt||0)-(a.createdAt||0));
-  const filtered=records.filter(record=>
-    JSON.stringify(record).toLowerCase().includes(term)
-  );
-
-  container.innerHTML=filtered.length
-    ? filtered.map(record=>makeRecord(record,module)).join("")
-    : '<div class="empty">No records found.</div>';
+  const filtered=records.filter(record=>JSON.stringify(record).toLowerCase().includes(term));
+  container.innerHTML=filtered.length?filtered.map(record=>makeRecord(record,module)).join(""):'<div class="empty">No records found.</div>';
 }
-
 ["personnel","cases","reports","tasks"].forEach(module=>{
   document.getElementById(module+"Search").addEventListener("input",()=>renderModule(module));
 });
-
 function renderAnnouncements(){
   const container=document.getElementById("announcementsList");
   const records=[...data.announcements].sort((a,b)=>(b.createdAt||0)-(a.createdAt||0));
-
-  container.innerHTML=records.length
-    ? records.map(record=>makeRecord(record,"announcements")).join("")
-    : '<div class="empty">No announcements published.</div>';
+  container.innerHTML=records.length?records.map(record=>makeRecord(record,"announcements")).join(""):'<div class="empty">No announcements published.</div>';
 }
-
 function renderActivity(){
   const container=document.getElementById("activityList");
   const records=[...data.activity].sort((a,b)=>(b.createdAt||0)-(a.createdAt||0)).slice(0,100);
-
-  container.innerHTML=records.length
-    ? records.map(record=>`
-      <div class="record">
-        <h4>${escapeHTML(record.title || "Portal activity")}</h4>
-        <div class="small">${escapeHTML(record.date || "")}</div>
-      </div>`).join("")
-    : '<div class="empty">No activity recorded yet.</div>';
+  container.innerHTML=records.length?records.map(record=>`
+    <div class="record"><h4>${escapeHTML(record.title||"Portal activity")}</h4><div class="small">${escapeHTML(record.date||"")}</div></div>
+  `).join(""):'<div class="empty">No activity recorded yet.</div>';
 }
-
 function renderDashboard(){
   const count=module=>data[module].length;
   document.getElementById("countPersonnel").textContent=count("personnel");
@@ -516,42 +377,23 @@ function renderDashboard(){
   document.getElementById("countReports").textContent=count("reports");
   document.getElementById("countTasks").textContent=count("tasks");
   document.getElementById("countAnnouncements").textContent=count("announcements");
-
-  document.getElementById("activePersonnel").textContent=
-    data.personnel.filter(x=>x.status==="Active").length;
-
-  document.getElementById("openCases").textContent=
-    data.cases.filter(x=>x.status!=="Closed").length;
-
-  document.getElementById("pendingTasks").textContent=
-    data.tasks.filter(x=>x.status!=="Completed").length;
-
-  const recent=[...data.activity]
-    .sort((a,b)=>(b.createdAt||0)-(a.createdAt||0)).slice(0,5);
-
-  document.getElementById("dashboardActivity").innerHTML=recent.length
-    ? recent.map(x=>`<p class="small">${escapeHTML(x.title)}<br>${escapeHTML(x.date)}</p>`).join("")
-    : '<p class="small">No recent activity.</p>';
+  document.getElementById("activePersonnel").textContent=data.personnel.filter(x=>x.status==="Active").length;
+  document.getElementById("openCases").textContent=data.cases.filter(x=>x.status!=="Closed").length;
+  document.getElementById("pendingTasks").textContent=data.tasks.filter(x=>x.status!=="Completed").length;
+  const recent=[...data.activity].sort((a,b)=>(b.createdAt||0)-(a.createdAt||0)).slice(0,5);
+  document.getElementById("dashboardActivity").innerHTML=recent.length?recent.map(x=>`<p class="small">${escapeHTML(x.title)}<br>${escapeHTML(x.date)}</p>`).join(""):'<p class="small">No recent activity.</p>';
 }
-
 function renderAll(){
   ["personnel","cases","reports","tasks"].forEach(renderModule);
-  renderAnnouncements();
-  renderActivity();
-  renderDashboard();
+  renderAnnouncements();renderActivity();renderDashboard();
 }
-
 function subscribe(){
   root.on("value",snapshot=>{
-    const value=snapshot.val() || {};
-
+    const value=snapshot.val()||{};
     modules.forEach(module=>{
-      const records=value[module] || {};
-      data[module]=Object.entries(records).map(([id,record])=>({
-        ...record,id
-      }));
+      const records=value[module]||{};
+      data[module]=Object.entries(records).map(([id,record])=>({...record,id}));
     });
-
     document.getElementById("connection").textContent="● DATABASE CONNECTED";
     renderAll();
   },error=>{
@@ -559,47 +401,25 @@ function subscribe(){
     console.error(error);
   });
 }
-
 function downloadFile(filename,content,type){
   const blob=new Blob([content],{type});
   const url=URL.createObjectURL(blob);
-  const a=document.createElement("a");
-  a.href=url;
-  a.download=filename;
-  a.click();
+  const a=document.createElement("a");a.href=url;a.download=filename;a.click();
   URL.revokeObjectURL(url);
 }
-
 document.getElementById("exportButton").addEventListener("click",()=>{
-  downloadFile(
-    "fsb-portal-backup.json",
-    JSON.stringify(data,null,2),
-    "application/json"
-  );
+  downloadFile("fsb-portal-backup.json",JSON.stringify(data,null,2),"application/json");
 });
-
 document.getElementById("csvButton").addEventListener("click",()=>{
   const rows=[["Module","Title","Officer","Status","Date","Details"]];
   ["personnel","cases","reports","announcements","tasks"].forEach(module=>{
     data[module].forEach(record=>{
-      rows.push([
-        module,
-        record.name || record.title || "",
-        record.officer || "",
-        record.status || record.priority || record.classification || "",
-        record.date || "",
-        record.details || record.notes || ""
-      ]);
+      rows.push([module,record.name||record.title||"",record.officer||"",record.status||record.priority||record.classification||"",record.date||"",record.details||record.notes||""]);
     });
   });
-
-  const csv=rows.map(row=>row.map(value=>
-    '"'+String(value).replace(/"/g,'""')+'"'
-  ).join(",")).join("\n");
-
+  const csv=rows.map(row=>row.map(value=>'"'+String(value).replace(/"/g,'""')+'"').join(",")).join("\n");
   downloadFile("fsb-portal-export.csv",csv,"text/csv");
 });
-
 subscribe();
 </script>
 </body>
